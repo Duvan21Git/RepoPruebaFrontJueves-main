@@ -1,0 +1,14 @@
+import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { routes } from './app.routes';
+import { jwtInterceptor } from './core/jwt-interceptor';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    // withComponentInputBinding: el :id de la URL llega como input() del componente
+    provideRouter(routes, withComponentInputBinding()),
+    provideHttpClient(withInterceptors([jwtInterceptor]))
+  ]
+};
